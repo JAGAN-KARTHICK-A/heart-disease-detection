@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardiovascular disease prediction</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        body {
+            padding-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+            Cardiovascular disease prediction
+          </a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item">
+              Home
+            </a>
+      
+            <a class="navbar-item">
+              GitHub
+            </a>
+      
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                More
+              </a>
+      
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  About - The model
+                </a>
+                <a class="navbar-item">
+                  About - Author
+                </a>
+                <a class="navbar-item">
+                  Dataset
+                </a>
+              </div>
+            </div>
+          </div>
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary">
+                  <strong>Sign up</strong>
+                </a>
+                <a class="button is-light">
+                  Log in
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="container" style="margin-top: 20px; margin-bottom: 20px;">
+        <div class="card">
+            <div class="card-content">
+                <p class="title">Heart Disease Prediction Model</p>
+              <div class="content">
+                
+This Heart Disease Prediction Model is built using a deep learning architecture for predicting the likelihood of having any cardiovascular diseases based on some clinical features. The model is trained on the <a href="https://www.kaggle.com/datasets/sulianova/cardiovascular-disease-dataset">UCI Cardiovascular Disease dataset</a>, which includes features like age, cholesterol levels, and lifestyle factors such as smoking and alcohol consumption.
+<br><br>
+Key Metrics:<br>
+Accuracy: 73.37%<br>
+Precision: 74.88%<br>
+F1-score: 0.7261<br>
+<br>
+Model Architecture:
+The model consists of several fully connected layers designed to capture non-linear relationships between the input features.
+It uses ReLU activation functions to introduce non-linearity and improve model learning.
+<br><br>
+How It Works:
+Input clinical data is provided through the web interface.
+The model processes this data and outputs a prediction (0 or 1) where 1 indicating the likelihood of heart disease and 0 indicating likelihood of not having a heart disease.
+The prediction helps identify individuals who may be at risk, providing valuable insights for timely medical intervention.
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="card">
+            <div class="card-content">
+                <p class="title">
+                Test the model
+                </p>
+                <div class="content">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="notification is-{{ category }}">
+                                        <button class="delete"></button>
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <form action="/predict" method="post">
+                    <div class="field">
+                        <p class="control has-icons-left has-icons-right">
+                          <input class="input" name="age" type="number" placeholder="Age (In Years)" required />
+                          <span class="icon is-small is-left">
+                            <i class="fa-solid fa-user"></i>
+                          </span>
+                        </p>
+                      </div>
+
+                      <div class="field">
+                        <p class="control has-icons-left has-icons-right">
+                          <input class="input" name="height" type="number" placeholder="Height (In CM)" required />
+                          <span class="icon is-small is-left">
+                            <i class="fa-solid fa-ruler-vertical"></i>
+                          </span>
+                        </p>
+                      </div>
+
+                      <div class="field">
+                        <p class="control has-icons-left has-icons-right">
+                          <input class="input" name="weight" type="number" placeholder="Weight (In KGs)" required />
+                          <span class="icon is-small is-left">
+                            <i class="fa-solid fa-weight-scale"></i>
+                          </span>
+                        </p>
+                      </div>
+
+                      <div class="field">
+                        <p class="control has-icons-left has-icons-right">
+                          <input class="input" name="ap-hi" type="number" placeholder="AP HI (Systolic blood pressure)" required />
+                          <span class="icon is-small is-left">
+                            <i class="fa-solid fa-droplet"></i>
+                          </span>
+                        </p>
+                      </div>
+
+                      <div class="field">
+                        <p class="control has-icons-left has-icons-right">
+                          <input class="input" name="ap-lo" type="number" placeholder="AP LO (Diastolic blood pressure)" required />
+                          <span class="icon is-small is-left">
+                            <i class="fa-solid fa-droplet"></i>
+                          </span>
+                        </p>
+                      </div>
+
+                      <hr class="divider">
+                      
+                      <div class="field">
+                        <label class="label">Select Gender</label>
+                        <div class="select is-normal">
+                            <select name="gender" required>
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+                      </div>
+                      
+                      <hr class="divider">
+
+                      <div class="field">
+                        <label class="label">Select Cholesterol level</label>
+                        <div class="select is-normal">
+                            <select name="cholesterol" required>
+                                <option>Normal</option>
+                                <option>Above normal</option>
+                                <option>Well above normal</option>
+                            </select>
+                        </div>
+                      </div>
+
+                      <hr class="divider">
+
+                      <div class="field">
+                        <label class="label">Select Glucose level</label>
+                        <div class="select is-normal">
+                            <select name="glucose" required>
+                                <option>Normal</option>
+                                <option>Above normal</option>
+                                <option>Well above normal</option>
+                            </select>
+                        </div>
+                      </div>
+
+                      <hr class="divider">
+
+                      <div class="field">
+                        <label class="label">Whether patient smokes or not?</label>
+                        <div class="select is-normal">
+                            <select name="smoke" required>
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                      </div>
+
+                      <hr class="divider">
+
+                      <div class="field">
+                        <label class="label">Does the patient consume alcohol?</label>
+                        <div class="select is-normal">
+                            <select name="alcohol" required>
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                      </div>
+
+                      <hr class="divider">
+
+                      <div class="field">
+                        <label class="label">Is the patient physically well active?</label>
+                        <div class="select is-normal">
+                            <select name="active" required>
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                      </div>
+
+                      <hr class="divider">
+
+                      <button class="submit button is-primary">Evaluate</button>
+
+                    </form>
+                </div>
+            </div>
+          </div>
+      </div>
+    <footer class="footer">
+        <div class="content has-text-centered">
+          <p>
+            <strong>Cardiovascular desiese prediction</strong> by <a href="https://jgthms.com">A.Jagan Karthick</a>.
+            The source code is licensed
+            <a href="https://opensource.org/license/mit">MIT</a>. The
+            website content is licensed
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0//"
+              >CC BY NC SA 4.0</a
+            >.
+          </p>
+        </div>
+      </footer>
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+  (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+    const $notification = $delete.parentNode;
+
+    $delete.addEventListener('click', () => {
+      $notification.parentNode.removeChild($notification);
+    });
+  });
+});
+      </script>
+</body>
+</html>
